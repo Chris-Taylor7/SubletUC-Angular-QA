@@ -43,6 +43,7 @@
     "dayjs": "^1.11.13",
     "font-awesome": "^4.7.0",
     "fontawesome": "^5.6.3",
+    "fortawesome": "^0.0.1-security",
     "jest-editor-support": "*",
     "ng2-charts": "^7.0.0",
     "ngx-toasta": "^4.0.0",

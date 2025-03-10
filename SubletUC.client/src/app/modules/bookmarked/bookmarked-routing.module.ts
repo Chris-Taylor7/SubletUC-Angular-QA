@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookmarkedComponent } from './bookmarked/bookmarked.component';
 
 const routes: Routes = [
-    { path: '', title: 'bookmarked', component: BookmarkedComponent }
+    { path: '', title: 'bookmark', component: BookmarkedComponent }
 ]
 
 @NgModule({
