@@ -3,7 +3,7 @@ using SubletUC.Server.Models;
 
 namespace SubletUC.Core.Models.Account
 {
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
         public int UserId { get; set; }
         public string? FullName { get; set; }

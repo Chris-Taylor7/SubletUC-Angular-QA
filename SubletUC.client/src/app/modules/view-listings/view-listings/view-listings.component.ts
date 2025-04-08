@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
+
 
 // eslint-disable-next-line @angular-eslint/prefer-standalone
 @Component({
@@ -8,5 +10,4 @@ import { Component } from '@angular/core';
   standalone: false
 })
 export class ViewListingsComponent {
-
 }

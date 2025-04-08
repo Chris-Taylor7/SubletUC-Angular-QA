@@ -12,6 +12,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HomeModule } from './modules/home/home.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -19,11 +20,10 @@ import { HomeModule } from './modules/home/home.module';
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     imports: [
-    ToastaModule, NgbCollapseModule,
-    RouterOutlet, TranslateModule, NavbarComponent, FooterComponent, HomeModule,
-    RouterModule
-],
-
+      ToastaModule, NgbCollapseModule,
+      RouterOutlet, TranslateModule, NavbarComponent, FooterComponent, HomeModule,
+      RouterModule, HttpClientModule
+    ]
 })
 export class AppComponent implements OnInit {
   isAppLoaded = false;
