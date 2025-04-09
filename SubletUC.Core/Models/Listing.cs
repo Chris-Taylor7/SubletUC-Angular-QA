@@ -26,5 +26,6 @@
         // Navigation property for related Roommates
         public ICollection<Roommate>? Roommates { get; set; }
         public bool Deleted { get; set; }
+        public int UserId { get; set; }
     }
 }
