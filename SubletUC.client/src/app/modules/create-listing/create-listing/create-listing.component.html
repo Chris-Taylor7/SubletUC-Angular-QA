@@ -48,9 +48,9 @@
         <!-- Availability -->
         <div>
           <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
-          <p-calendar id="availability" formControlName="availability" dateFormat="mm/dd/yy" 
-                      class="w-full mt-1 [&>.p-calendar]:w-full [&>.p-calendar>.p-inputtext]:border [&>.p-calendar>.p-inputtext]:border-gray-700 [&>.p-calendar>.p-inputtext]:rounded-md" required>
-          </p-calendar>
+          <p-datepicker id="availability" formControlName="availability" dateFormat="mm/dd/yy" 
+                      class="w-full mt-1 [&>.p-datepicker]:w-full [&>.p-datepicker>.p-inputtext]:border [&>.p-datepicker>.p-inputtext]:border-gray-700 [&>.p-datepicker>.p-inputtext]:rounded-md" required>
+          </p-datepicker>
         </div>
   
         <!-- Distance from Campus -->
@@ -68,7 +68,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-gray-200 rounded-lg">
         <div class="flex items-center">
           <p-checkbox id="utilitiesIncluded" formControlName="utilitiesIncludedInRent" binary="true"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="utilitiesIncluded" class="ml-2 text-sm text-gray-700">
             Utilities Included in Rent
@@ -77,7 +77,7 @@
   
         <div class="flex items-center">
           <p-checkbox id="sharedRoom" formControlName="sharedRoom" binary="true" (onChange)="onSharedRoomChange()"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="sharedRoom" class="ml-2 text-sm text-gray-700">
             Shared Room
@@ -86,7 +86,7 @@
   
         <div class="flex items-center">
           <p-checkbox id="petsAllowed" formControlName="catsAndDogsAllowed" binary="true"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="petsAllowed" class="ml-2 text-sm text-gray-700">
             Cats & Dogs Allowed
@@ -95,7 +95,7 @@
   
         <div class="flex items-center">
           <p-checkbox id="washerDryer" formControlName="washerDryer" binary="true"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="washerDryer" class="ml-2 text-sm text-gray-700">
             Washer/Dryer
@@ -104,7 +104,7 @@
   
         <div class="flex items-center">
           <p-checkbox id="parking" formControlName="offStreetParking" binary="true"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="parking" class="ml-2 text-sm text-gray-700">
             Off-Street Parking
@@ -113,7 +113,7 @@
   
         <div class="flex items-center">
           <p-checkbox id="driveway" formControlName="driveway" binary="true"
-                      [style]="{'border': '1px solid #d1d5db', 'borderRadius': '0.375rem', 'padding': '0.5rem'}">
+                      class="border w-10">
           </p-checkbox>
           <label for="driveway" class="ml-2 text-sm text-gray-700">
             Driveway
@@ -147,10 +147,10 @@
               </div>
               <div>
                 <label [for]="'gender'+i" class="block text-sm font-medium text-gray-700">Gender</label>
-                <p-dropdown [id]="'gender'+i" formControlName="Gender" [options]="genderOptions"
+                <p-select [id]="'gender'+i" formControlName="Gender" [options]="genderOptions"
                             optionLabel="label" optionValue="value" 
-                            class="w-full mt-1 [&>.p-dropdown]:w-full [&>.p-dropdown>.p-dropdown-label]:border [&>.p-dropdown>.p-dropdown-label]:border-gray-700">
-                </p-dropdown>
+                            class="w-full mt-1 [&>.p-select]:w-full [&>.p-select>.p-select-label]:border [&>.p-select>.p-select-label]:border-gray-700">
+                </p-select>
               </div>
             </div>
             <button type="button" pButton icon="pi pi-trash" class="p-button-text p-button-danger mt-2"

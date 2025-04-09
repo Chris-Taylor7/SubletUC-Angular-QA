@@ -11,7 +11,8 @@ import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
-
+import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'primeng/datepicker';
 @NgModule({
   declarations: [CreateListingComponent],
   imports: [
@@ -26,6 +27,9 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     ToastModule,
     HttpClientModule,
+    DatePickerModule,
+    SelectModule
+
   ]
 })
 export class CreateListingModule { }
