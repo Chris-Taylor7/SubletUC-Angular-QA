@@ -6,13 +6,14 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { HttpClientModule } from '@angular/common/http';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerComponent } from "../../shared/components/date-picker/date-picker.component";
+import { InputNumberComponent } from "../../shared/components/input-number/input-number.component";
 @NgModule({
   declarations: [CreateListingComponent],
   imports: [
@@ -22,14 +23,16 @@ import { DatePickerModule } from 'primeng/datepicker';
     CheckboxModule,
     InputNumberModule,
     CalendarModule,
-    DropdownModule,
+    SelectModule,
     ButtonModule,
     ReactiveFormsModule,
+    FormsModule,
     ToastModule,
     HttpClientModule,
     DatePickerModule,
-    SelectModule
-
-  ]
+    SelectModule,
+    DatePickerComponent,
+    InputNumberComponent
+]
 })
 export class CreateListingModule { }

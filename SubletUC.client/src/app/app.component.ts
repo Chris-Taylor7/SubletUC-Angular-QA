@@ -13,6 +13,8 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HomeModule } from './modules/home/home.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     imports: [
       ToastaModule, NgbCollapseModule,
       RouterOutlet, TranslateModule, NavbarComponent, FooterComponent, HomeModule,
-      RouterModule, HttpClientModule
+      RouterModule, HttpClientModule, CommonModule, 
     ]
 })
 export class AppComponent implements OnInit {

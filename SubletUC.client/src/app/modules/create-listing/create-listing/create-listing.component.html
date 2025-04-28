@@ -1,197 +1,167 @@
-<!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
+<div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg border border-black">
+  <h2 class="text-3xl font-bold text-gray-900 mb-8 pb-2 border-b-2 border-black">Create New Listing</h2>
+  
+  <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" class="space-y-8">
+    <!-- Basic Information -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Address -->
+      <div class="col-span-2">
+        <label for="address" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Address</label>
+        <input pInputText id="address" formControlName="address" 
+               class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50" required>
+      </div>
 
-<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Create New Listing</h2>
+      <!-- Rent and Utilities -->
+      <div>
+        <app-input-number formControlName="rent"  [placeholder]="'Monthly Rent: '" [mode]="'currency'" [currency]="'USD'" [label]="'Rent: '"/>
+      </div>
     
-    <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" class="space-y-6">
-      <!-- Basic Information -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Address -->
-        <div class="col-span-2">
-          <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-          <input pInputText id="address" formControlName="address" 
-                 class="w-full mt-1 border border-gray-700 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" required>
-        </div>
-  
-        <!-- Rent and Utilities -->
-        <div>
-          <label for="rent" class="block text-sm font-medium text-gray-700">Monthly Rent ($)</label>
-          <p-inputNumber id="rent" formControlName="rent" mode="currency" currency="USD" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md">
-          </p-inputNumber>
-        </div>
-  
-        <div>
-          <label for="utilities" class="block text-sm font-medium text-gray-700">
-            Average Utilities ($)
-          </label>
-          <p-inputNumber id="utilities" formControlName="averageutilities" mode="currency" currency="USD" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md">
-          </p-inputNumber>
-        </div>
-  
-        <!-- Bedrooms and Bathrooms -->
-        <div>
-          <label for="bedrooms" class="block text-sm font-medium text-gray-700">Bedrooms</label>
-          <p-inputNumber id="bedrooms" formControlName="bedrooms" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md" required>
-          </p-inputNumber>
-        </div>
-  
-        <div>
-          <label for="bathrooms" class="block text-sm font-medium text-gray-700">Bathrooms</label>
-          <p-inputNumber id="bathrooms" formControlName="bathrooms" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md" required>
-          </p-inputNumber>
-        </div>
-  
-        <!-- Availability -->
-        <div>
-          <label for="availability" class="block text-sm font-medium text-gray-700">Availability</label>
-          <p-datepicker id="availability" formControlName="availability" dateFormat="mm/dd/yy" 
-                      class="w-full mt-1 [&>.p-datepicker]:w-full [&>.p-datepicker>.p-inputtext]:border [&>.p-datepicker>.p-inputtext]:border-gray-700 [&>.p-datepicker>.p-inputtext]:rounded-md" required>
-          </p-datepicker>
-        </div>
-  
-        <!-- Distance from Campus -->
-        <div>
-          <label for="distance" class="block text-sm font-medium text-gray-700">
-            Distance from Campus (miles)
-          </label>
-          <p-inputNumber id="distance" formControlName="distanceFromCampus" suffix=" miles" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md">
-          </p-inputNumber>
-        </div>
+      <!-- Average Utilities -->
+      <div>
+        <app-input-number formControlName="utilities" [placeholder]="'Estimate monthly utilities: '" [mode]="'currency'" [currency]="'USD'" [label]="'Average Utilities: '"/>
       </div>
-  
-      <!-- Checkbox Options -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-gray-200 rounded-lg">
-        <div class="flex items-center">
-          <p-checkbox id="utilitiesIncluded" formControlName="utilitiesIncludedInRent" binary="true"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="utilitiesIncluded" class="ml-2 text-sm text-gray-700">
-            Utilities Included in Rent
-          </label>
-        </div>
-  
-        <div class="flex items-center">
-          <p-checkbox id="sharedRoom" formControlName="sharedRoom" binary="true" (onChange)="onSharedRoomChange()"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="sharedRoom" class="ml-2 text-sm text-gray-700">
-            Shared Room
-          </label>
-        </div>
-  
-        <div class="flex items-center">
-          <p-checkbox id="petsAllowed" formControlName="catsAndDogsAllowed" binary="true"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="petsAllowed" class="ml-2 text-sm text-gray-700">
-            Cats & Dogs Allowed
-          </label>
-        </div>
-  
-        <div class="flex items-center">
-          <p-checkbox id="washerDryer" formControlName="washerDryer" binary="true"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="washerDryer" class="ml-2 text-sm text-gray-700">
-            Washer/Dryer
-          </label>
-        </div>
-  
-        <div class="flex items-center">
-          <p-checkbox id="parking" formControlName="offStreetParking" binary="true"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="parking" class="ml-2 text-sm text-gray-700">
-            Off-Street Parking
-          </label>
-        </div>
-  
-        <div class="flex items-center">
-          <p-checkbox id="driveway" formControlName="driveway" binary="true"
-                      class="border w-10">
-          </p-checkbox>
-          <label for="driveway" class="ml-2 text-sm text-gray-700">
-            Driveway
-          </label>
-        </div>
+    
+      <!-- Bedrooms -->
+      <div>
+        <app-input-number formControlName="bedrooms" [placeholder]="'Number of bedrooms: '" [label]="'Bedrooms'"/>
       </div>
-  
-      <!-- Shared Roommates (conditional) -->
-      <div *ngIf="listingForm?.get('sharedRoom')?.value" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label for="sharedRoommates" class="block text-sm font-medium text-gray-700">
-            Number of Shared Roommates
-          </label>
-          <p-inputNumber id="sharedRoommates" formControlName="sharedRoommates" 
-                         class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md">
-          </p-inputNumber>
-        </div>
+    
+      <!-- Bathrooms -->
+      <div>
+        <app-input-number formControlName="bathrooms" [placeholder]="'Number of bathrooms: '" [label]="'Bathrooms'"/>
       </div>
-  
-      <!-- Roommates Section (FormArray) -->
-      <div class="space-y-4 p-4 border border-gray-200 rounded-lg">
-        <h3 class="text-lg font-medium text-gray-800">Roommates</h3>
-        <div formArrayName="roommates">
-          <div *ngFor="let roommate of roommates.controls; let i = index" [formGroupName]="i" class="p-4 border border-gray-200 rounded-lg">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label [for]="'year'+i" class="block text-sm font-medium text-gray-700">Year</label>
-                <p-inputNumber [id]="'year'+i" formControlName="year" 
-                               class="w-full mt-1 [&>.p-inputnumber]:w-full [&>.p-inputnumber>.p-inputtext]:border [&>.p-inputnumber>.p-inputtext]:border-gray-700 [&>.p-inputnumber>.p-inputtext]:rounded-md">
-                </p-inputNumber>
-              </div>
-              <div>
-                <label [for]="'gender'+i" class="block text-sm font-medium text-gray-700">Gender</label>
-                <p-select [id]="'gender'+i" formControlName="Gender" [options]="genderOptions"
-                            optionLabel="label" optionValue="value" 
-                            class="w-full mt-1 [&>.p-select]:w-full [&>.p-select>.p-select-label]:border [&>.p-select>.p-select-label]:border-gray-700">
-                </p-select>
-              </div>
+    
+      <!-- Availability -->
+      <div>
+        <app-date-picker formControlName="availability"/>
+      </div>
+    
+      <!-- Distance from Campus -->
+      <div>
+        <app-input-number [label]="'Distance in miles: '" [suffix]="'miles'" [placeholder]="'Distance in miles'" formControlName="distanceFromCampus"/>
+      </div>
+    </div>
+
+    <!-- Checkbox Options -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 border-2 border-black rounded-lg bg-gray-50">
+      <div class="flex items-center">
+        <p-checkbox id="utilitiesIncluded" formControlName="utilitiesIncludedInRent" [binary]="true"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6">
+        </p-checkbox>
+        <label for="utilitiesIncluded" class="ml-3 text-sm font-medium text-gray-900">
+          Utilities Included in Rent
+        </label>
+      </div>
+
+      <div class="flex items-center">
+        <p-checkbox id="sharedRoom" formControlName="sharedRoom" (onChange)="onSharedRoomChange()"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
+        </p-checkbox>
+        <label for="sharedRoom" class="ml-3 text-sm font-medium text-gray-900">
+          Shared Room
+        </label>
+      </div>
+
+      <div class="flex items-center">
+        <p-checkbox id="petsAllowed" formControlName="catsAndDogsAllowed"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
+        </p-checkbox>
+        <label for="petsAllowed" class="ml-3 text-sm font-medium text-gray-900">
+          Cats & Dogs Allowed
+        </label>
+      </div>
+
+      <div class="flex items-center">
+        <p-checkbox id="washerDryer" formControlName="washerDryer"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
+        </p-checkbox>
+        <label for="washerDryer" class="ml-3 text-sm font-medium text-gray-900">
+          Washer/Dryer
+        </label>
+      </div>
+
+      <div class="flex items-center">
+        <p-checkbox id="parking" formControlName="offStreetParking"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
+        </p-checkbox>
+        <label for="parking" class="ml-3 text-sm font-medium text-gray-900">
+          Off-Street Parking
+        </label>
+      </div>
+
+      <div class="flex items-center">
+        <p-checkbox id="driveway" formControlName="driveway"
+                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
+        </p-checkbox>
+        <label for="driveway" class="ml-3 text-sm font-medium text-gray-900">
+          Driveway
+        </label>
+      </div>
+    </div>
+
+    <!-- Shared Roommates (conditional) -->
+    <div *ngIf="listingForm?.get('sharedRoom')?.value" class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 border-2 border-black rounded-lg bg-gray-50">
+      <div>
+        <app-input-number formControlName="sharedRoommates" [label]="'Shared Roomates?'"/>
+      </div>
+    </div>
+
+    <!-- Roommates Section (FormArray) -->
+    <div class="space-y-4 p-6 border-2 border-black rounded-lg bg-gray-50">
+      <h3 class="text-lg font-bold text-gray-900 uppercase tracking-wider border-b-2 border-black pb-2">Roommates</h3>
+      <div formArrayName="roommates">
+        <div *ngFor="let roommate of roommates.controls; let i = index" [formGroupName]="i" class="p-4 border-2 border-black rounded-lg bg-white mt-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <app-input-number formControlName="year" [label]="'Year: '"/>
             </div>
-            <button type="button" pButton icon="pi pi-trash" class="p-button-text p-button-danger mt-2"
-                    (click)="removeRoommate(i)">
-              Remove Roommate
-            </button>
+            <div>
+              <label [for]="'gender'+i" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Gender</label>
+              <p-select [id]="'gender'+i" formControlName="Gender" [options]="genderOptions"
+                          optionLabel="label" optionValue="value"> 
+              </p-select>
+            </div>
           </div>
-        </div>
-        <button type="button" pButton icon="pi pi-plus" class="p-button-text"
-                (click)="addRoommate()">
-          Add Roommate
-        </button>
-      </div>
-  
-      <!-- Description and Notes -->
-      <div class="space-y-4">
-        <div>
-          <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-          <textarea pInputTextarea id="description" formControlName="description" rows="3" 
-                    class="w-full mt-1 border border-gray-700 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
-        </div>
-  
-        <div>
-          <label for="notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
-          <textarea pInputTextarea id="notes" formControlName="notes" rows="2" 
-                    class="w-full mt-1 border border-gray-700 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+          <button type="button" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger mt-4 bg-red-700 hover:bg-red-800 border-2 border-black"
+                  (click)="removeRoommate(i)">
+            Remove Roommate
+          </button>
         </div>
       </div>
-  
-      <!-- Photo Upload -->
-      <div class="p-4 border border-gray-200 rounded-lg">
-        <label class="block text-sm font-medium text-gray-700">Photo</label>
-        <p-fileUpload name="photo" [customUpload]="true" (uploadHandler)="onPhotoUpload($event)"
-                      accept="image/*" maxFileSize="1000000" chooseLabel="Select Photo"
-                      class="mt-1 [&>.p-fileupload]:w-full [&>.p-fileupload-buttonbar]:bg-gray-50 [&>.p-fileupload-buttonbar]:border [&>.p-fileupload-buttonbar]:border-gray-700 [&>.p-fileupload-content]:border [&>.p-fileupload-content]:border-gray-300">
-        </p-fileUpload>
+      <button type="button" pButton icon="pi pi-plus" class="p-button-rounded mt-4 bg-gray-900 hover:bg-gray-800 text-white border-2 border-black"
+              (click)="addRoommate()">
+        Add Roommate
+      </button>
+    </div>
+
+    <!-- Description and Notes -->
+    <div class="space-y-6">
+      <div>
+        <label for="description" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Description</label>
+        <textarea pInputTextarea id="description" formControlName="description" rows="4" 
+                  class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50"></textarea>
       </div>
-  
-      <!-- Submit Button -->
-      <div class="flex justify-end">
-        <p-button type="submit" label="Submit Listing" class="bg-red-700 hover:bg-red-600 border" [rounded]="true" ></p-button>
+
+      <div>
+        <label for="notes" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Additional Notes</label>
+        <textarea pInputTextarea id="notes" formControlName="notes" rows="3" 
+                  class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50"></textarea>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <!-- Photo Upload -->
+    <div class="p-6 border-2 border-black rounded-lg bg-gray-50">
+      <label class="block text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">Photo</label>
+      <p-fileUpload name="photo" [customUpload]="true" (uploadHandler)="onPhotoUpload($event)"
+                    accept="image/*" maxFileSize="1000000" chooseLabel="Select Photo"
+                    class="mt-1 [&>.p-fileupload]:w-full [&>.p-fileupload-buttonbar]:border-black [&>.p-fileupload-content]:border-2 [&>.p-fileupload-content]:border-black">
+      </p-fileUpload>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end pt-4 border-t-2 border-black">
+      <p-button type="submit" label="Submit Listing" 
+                class="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-6 rounded-lg border-2 border-black shadow-lg transition duration-300 transform hover:scale-105"></p-button>
+    </div>
+  </form>
+</div>

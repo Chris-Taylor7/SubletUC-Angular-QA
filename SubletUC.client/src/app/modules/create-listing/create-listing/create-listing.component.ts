@@ -102,6 +102,8 @@ export class CreateListingComponent implements OnInit {
     debugger;
     const formValue = this.listingForm.value;
     console.log('Form submitted:', formValue);
+
+    debugger;
     
     this.showToast('success', 'Success', 'Listing submitted successfully');
     this.listingForm.reset();
