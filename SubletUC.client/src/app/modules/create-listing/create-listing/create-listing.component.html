@@ -7,7 +7,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Address -->
       <div class="col-span-2">
-        <app-input-number name="address" [(ngModel)]="listing.address" required [label]="'Address'"></app-input-number>
+        <label class="block text-sm font-bold text-gray-900 uppercase tracking-wider mb-1">
+          Address
+      </label>
+        <input type="text" name="address" pInputText [(ngModel)]="listing.address" class="border border-black rounded " required/>
       </div>
 
       <!-- Rent and Utilities -->

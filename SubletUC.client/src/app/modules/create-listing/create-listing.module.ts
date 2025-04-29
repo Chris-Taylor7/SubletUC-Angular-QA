@@ -14,6 +14,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { DatePickerComponent } from "../../shared/components/date-picker/date-picker.component";
 import { InputNumberComponent } from "../../shared/components/input-number/input-number.component";
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox/checkbox.component';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
   declarations: [CreateListingComponent],
   imports: [
@@ -32,6 +33,7 @@ import { CheckboxComponent } from '../../shared/components/checkbox/checkbox/che
     DatePickerComponent,
     InputNumberComponent,
     CheckboxComponent,
+    InputTextModule 
 ]
 })
 export class CreateListingModule { }
