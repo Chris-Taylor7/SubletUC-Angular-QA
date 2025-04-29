@@ -1,4 +1,12 @@
 <label for="availability" class="block text-sm font-bold text-gray-900 uppercase tracking-wider mb-1">
-    Availability
-  </label> 
-<p-datepicker dateFormat="mm/dd/yy" placeholder="Select available date" required/>
+  Available Until:
+</label>
+
+<p-datepicker [(ngModel)]="value" 
+  selectionMode="range" 
+  (onSelect)="onDateChange($event)"  
+  [readonlyInput]="true"   
+  [placeholder]="placeholder"
+  [showButtonBar]="true" 
+  class=" p-datepicker border border-black rounded "
+  />

@@ -1,0 +1,11 @@
+
+
+<div class="flex items-center">
+    <label for="{{forLabel}}" class="ml-3 text-sm font-medium text-gray-900 ">
+        {{label}}
+      </label>
+    <input type="checkbox" name="{{name}}" [(ngModel)]="checked" 
+    (onChange)="onValueChange($event)" class="border border-black w-20"
+    >
+    
+  </div>

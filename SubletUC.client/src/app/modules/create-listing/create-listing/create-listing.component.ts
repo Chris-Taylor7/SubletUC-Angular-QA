@@ -1,21 +1,40 @@
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Gender } from '../../../data/enum/gender';
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ɵBrowserAnimationBuilder } from '@angular/animations';
-
+import { Gender } from '../../../data/enum/gender';
+import { ListingService } from '../../../services/listing-service';
 @Component({
   selector: 'app-create-listing',
   templateUrl: './create-listing.component.html',
   styleUrls: ['./create-listing.component.scss'],
-  providers: [MessageService, ɵBrowserAnimationBuilder], // Required for toast messages
-  standalone: false
+  providers: [MessageService],
+  standalone: false,
 })
 export class CreateListingComponent implements OnInit {
-  listingForm!: FormGroup;
+
+
+  listing: any = {
+    address: '',
+    rent: 0,
+    availability: '',
+    bedrooms: 0,
+    bathrooms: 0,
+    description: '',
+    utilitiesIncludedInRent: false,
+    averageutilities: 0,
+    roommates: [],
+    sharedRoom: false,
+    sharedRoommates: 0,
+    catsAndDogsAllowed: false,
+    washerDryer: false,
+    offStreetParking: false,
+    driveway: false,
+    distanceFromCampus: 0,
+    notes: '',
+    photo: null,
+    userId: 1
+  };
+
   genderOptions = [
     { label: 'Male', value: Gender.Male },
     { label: 'Female', value: Gender.Female },
@@ -23,56 +42,24 @@ export class CreateListingComponent implements OnInit {
     { label: 'Other', value: Gender.Other }
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService
-  ) {}
+  constructor(private messageService: MessageService,   private readonly _listingService: ListingService
+  ){}//, private listingService: ListingService) {
+  
 
   ngOnInit(): void {
-    this.initForm();
     this.addRoommate();
   }
 
-  initForm(): void {
-    this.listingForm = this.fb.group({
-      address: ['', Validators.required],
-      rent: [0, [Validators.required, Validators.min(1)]],
-      availability: ['', Validators.required],
-      bedrooms: [1, [Validators.required, Validators.min(1)]],
-      bathrooms: [1, [Validators.required, Validators.min(1)]],
-      description: [''],
-      utilitiesIncludedInRent: [false],
-      averageutilities: [0],
-      roommates: this.fb.array([]),
-      sharedRoom: [false],
-      sharedRoommates: [0],
-      catsAndDogsAllowed: [false],
-      washerDryer: [false],
-      offStreetParking: [false],
-      driveway: [false],
-      distanceFromCampus: [0],
-      notes: [''],
-      photo: [null],
-      userId: [1]
+  addRoommate(): void {
+    this.listing.roommates.push({
+      year: new Date().getFullYear(),
+      Gender: Gender.Male
     });
   }
 
-  get roommates(): FormArray {
-    return this.listingForm.get('roommates') as FormArray;
-  }
-
-  addRoommate(): void {
-    this.roommates.push(
-      this.fb.group({
-        year: [new Date().getFullYear()],
-        Gender: [Gender.Male]
-      })
-    );
-  }
-
   removeRoommate(index: number): void {
-    if (this.roommates.length > 1) {
-      this.roommates.removeAt(index);
+    if (this.listing.roommates.length > 1) {
+      this.listing.roommates.splice(index, 1);
       this.showToast('success', 'Roommate removed');
     } else {
       this.showToast('warn', 'Warning', 'At least one roommate is required');
@@ -80,37 +67,69 @@ export class CreateListingComponent implements OnInit {
   }
 
   onSharedRoomChange(): void {
-    if (!this.listingForm.get('sharedRoom')?.value) {
-      this.listingForm.get('sharedRoommates')?.setValue(0);
+    if (!this.listing.sharedRoom) {
+      this.listing.sharedRoommates = 0;
     }
   }
 
   onPhotoUpload(event: any): void {
     const file = event.files[0];
     if (file) {
-      this.listingForm.patchValue({ photo: file });
+      this.listing.photo = file;
       this.showToast('success', 'Photo selected');
     }
   }
 
-  onSubmit(): void {
-    if (this.listingForm.invalid) {
+  onSubmit(form: any): void {
+    console.log("button works")
+    if (form.invalid) {
+      console.log("form error \n ")
+      console.log(form)
       this.showToast('error', 'Error', 'Please fill in all required fields');
       return;
     }
-    console.log(this.listingForm);
-    debugger;
-    const formValue = this.listingForm.value;
-    console.log('Form submitted:', formValue);
-
-    debugger;
-    
-    this.showToast('success', 'Success', 'Listing submitted successfully');
-    this.listingForm.reset();
-    this.addRoommate(); // Reset with one roommate
+    console.log(form);
+    debugger
+    this._listingService.createOrUpdateListing(this.listing).subscribe({
+      next: () => {
+        this.showToast('success', 'Success', 'Listing submitted successfully');
+        this.resetForm();
+      },
+      error: (err) => {
+        console.error('Error submitting listing:', err);
+        this.showToast('error', 'Error', 'Failed to submit listing');
+      }
+    });
+  }
+  
+  private resetForm(): void {
+    this.listing = {
+      listingId: 0,
+      address: '',
+      rent: 0,
+      availability: '',
+      bedrooms: 1,
+      bathrooms: 1,
+      description: '',
+      utilitiesIncludedInRent: false,
+      averageutilities: 0,
+      roommates: [],
+      sharedRoom: false,
+      sharedRoommates: 0,
+      catsAndDogsAllowed: false,
+      washerDryer: false,
+      offStreetParking: false,
+      driveway: false,
+      distanceFromCampus: 0,
+      notes: '',
+      photo: null,
+      userId: 1,
+      deleted: false
+    };
+    this.addRoommate();
   }
 
   private showToast(severity: string, summary: string, detail: string = ''): void {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    this.messageService.add({ severity, summary, detail });
   }
 }

@@ -3,8 +3,12 @@
 </label>
 
 <p-inputNumber 
-    mode="{{mode}}" 
-    placeholder="{{placeholder}}"
-    currency="{{currency}}"
-    suffix="{{suffix}}"
-    required/>
+    [(ngModel)]="value" 
+    (onInput)="onInputChange($event.value)"
+    [disabled]="disabled"
+    [mode]="mode" 
+    [placeholder]="placeholder"
+    [currency]="currency"
+    [suffix]="suffix"
+    class="border border-black rounded "
+    ></p-inputNumber>

@@ -1,132 +1,128 @@
-<div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg border border-black">
+<div class="max-w-4xl mx-auto p-8 bg-gray-500 rounded-lg shadow-lg border border-black ">
   <h2 class="text-3xl font-bold text-gray-900 mb-8 pb-2 border-b-2 border-black">Create New Listing</h2>
   
-  <form [formGroup]="listingForm" (ngSubmit)="onSubmit()" class="space-y-8">
+  <!-- Changed from [formGroup] to #form="ngForm" -->
+  <form #form="ngForm" (ngSubmit)="onSubmit(listing)" class="space-y-8">
     <!-- Basic Information -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Address -->
       <div class="col-span-2">
-        <label for="address" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Address</label>
-        <input pInputText id="address" formControlName="address" 
-               class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50" required>
+        <app-input-number name="address" [(ngModel)]="listing.address" required [label]="'Address'"></app-input-number>
       </div>
 
       <!-- Rent and Utilities -->
       <div>
-        <app-input-number formControlName="rent"  [placeholder]="'Monthly Rent: '" [mode]="'currency'" [currency]="'USD'" [label]="'Rent: '"/>
+        <app-input-number name="rent" [(ngModel)]="listing.rent" required [placeholder]="'Monthly Rent: '" [mode]="'currency'" [currency]="'USD'" [label]="'Rent: '"></app-input-number>
       </div>
     
       <!-- Average Utilities -->
       <div>
-        <app-input-number formControlName="utilities" [placeholder]="'Estimate monthly utilities: '" [mode]="'currency'" [currency]="'USD'" [label]="'Average Utilities: '"/>
+        <app-input-number name="utilities" [(ngModel)]="listing.averageutilities" [placeholder]="'Estimate monthly utilities: '" [mode]="'currency'" [currency]="'USD'" [label]="'Average Utilities: '"></app-input-number>
       </div>
     
       <!-- Bedrooms -->
       <div>
-        <app-input-number formControlName="bedrooms" [placeholder]="'Number of bedrooms: '" [label]="'Bedrooms'"/>
+        <app-input-number name="bedrooms" [(ngModel)]="listing.bedrooms" required [placeholder]="'Number of bedrooms: '" [label]="'Bedrooms'"></app-input-number>
       </div>
     
       <!-- Bathrooms -->
       <div>
-        <app-input-number formControlName="bathrooms" [placeholder]="'Number of bathrooms: '" [label]="'Bathrooms'"/>
+        <app-input-number name="bathrooms" [(ngModel)]="listing.bathrooms" required [placeholder]="'Number of bathrooms: '" [label]="'Bathrooms'"></app-input-number>
       </div>
     
       <!-- Availability -->
       <div>
-        <app-date-picker formControlName="availability"/>
+        <app-date-picker 
+           name="availability" 
+           [(ngModel)]="listing.availability" 
+           [placeholder]="'Select a Date...'"
+           required>
+        </app-date-picker>
       </div>
     
       <!-- Distance from Campus -->
       <div>
-        <app-input-number [label]="'Distance in miles: '" [suffix]="'miles'" [placeholder]="'Distance in miles'" formControlName="distanceFromCampus"/>
+        <app-input-number name="distanceFromCampus" [(ngModel)]="listing.distanceFromCampus" [label]="'Distance in miles: '" [suffix]="' miles'" [placeholder]="'Distance in miles'"></app-input-number>
       </div>
     </div>
 
     <!-- Checkbox Options -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6 border-2 border-black rounded-lg bg-gray-50">
-      <div class="flex items-center">
-        <p-checkbox id="utilitiesIncluded" formControlName="utilitiesIncludedInRent" [binary]="true"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6">
-        </p-checkbox>
-        <label for="utilitiesIncluded" class="ml-3 text-sm font-medium text-gray-900">
-          Utilities Included in Rent
-        </label>
-      </div>
+      <!-- Utilities Included -->
+      <app-checkbox 
+      name="utilitiesIncludedInRent" 
+      [(checked)]="listing.utilitiesIncludedInRent"
+      label="Utilities Included in Rent"
+      forLabel="utilitiesIncluded">
+      </app-checkbox>
 
-      <div class="flex items-center">
-        <p-checkbox id="sharedRoom" formControlName="sharedRoom" (onChange)="onSharedRoomChange()"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
-        </p-checkbox>
-        <label for="sharedRoom" class="ml-3 text-sm font-medium text-gray-900">
-          Shared Room
-        </label>
-      </div>
+      <!-- Shared Room -->
+      <app-checkbox 
+        name="sharedRoom" 
+        [(checked)]="listing.sharedRoom"
+        (onChange)="onSharedRoomChange()"
+        label="Shared Room"
+        forLabel="sharedRoom">
+      </app-checkbox>
 
-      <div class="flex items-center">
-        <p-checkbox id="petsAllowed" formControlName="catsAndDogsAllowed"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
-        </p-checkbox>
-        <label for="petsAllowed" class="ml-3 text-sm font-medium text-gray-900">
-          Cats & Dogs Allowed
-        </label>
-      </div>
+      <!-- Pets Allowed -->
+      <app-checkbox 
+        name="catsAndDogsAllowed" 
+        [(checked)]="listing.catsAndDogsAllowed"
+        label="Cats & Dogs Allowed"
+        forLabel="petsAllowed">
+      </app-checkbox>
 
-      <div class="flex items-center">
-        <p-checkbox id="washerDryer" formControlName="washerDryer"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
-        </p-checkbox>
-        <label for="washerDryer" class="ml-3 text-sm font-medium text-gray-900">
-          Washer/Dryer
-        </label>
-      </div>
+      <!-- Washer/Dryer -->
+      <app-checkbox 
+        name="washerDryer" 
+        [(checked)]="listing.washerDryer"
+        label="Washer/Dryer"
+        forLabel="washerDryer">
+      </app-checkbox>
 
-      <div class="flex items-center">
-        <p-checkbox id="parking" formControlName="offStreetParking"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
-        </p-checkbox>
-        <label for="parking" class="ml-3 text-sm font-medium text-gray-900">
-          Off-Street Parking
-        </label>
-      </div>
+      <!-- Parking -->
+      <app-checkbox 
+        name="offStreetParking" 
+        [(checked)]="listing.offStreetParking"
+        label="Off-Street Parking"
+        forLabel="parking">
+      </app-checkbox>
 
-      <div class="flex items-center">
-        <p-checkbox id="driveway" formControlName="driveway"
-                    class="[&>.p-checkbox-box]:border-2 [&>.p-checkbox-box]:border-black [&>.p-checkbox-box]:w-6 [&>.p-checkbox-box]:h-6" [binary]="true">
-        </p-checkbox>
-        <label for="driveway" class="ml-3 text-sm font-medium text-gray-900">
-          Driveway
-        </label>
-      </div>
+      <!-- Driveway -->
+      <app-checkbox 
+        name="driveway" 
+        [(checked)]="listing.driveway"
+        label="Driveway"
+        forLabel="driveway">
+      </app-checkbox>
     </div>
 
     <!-- Shared Roommates (conditional) -->
-    <div *ngIf="listingForm?.get('sharedRoom')?.value" class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 border-2 border-black rounded-lg bg-gray-50">
+    <div *ngIf="listing.sharedRoom" class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 border-2 border-black rounded-lg bg-gray-50">
       <div>
-        <app-input-number formControlName="sharedRoommates" [label]="'Shared Roomates?'"/>
+        <app-input-number name="sharedRoommates" [(ngModel)]="listing.sharedRoommates" [label]="'Shared Roomates?'"></app-input-number>
       </div>
     </div>
 
-    <!-- Roommates Section (FormArray) -->
+    <!-- Roommates Section (ngFor instead of FormArray) -->
     <div class="space-y-4 p-6 border-2 border-black rounded-lg bg-gray-50">
       <h3 class="text-lg font-bold text-gray-900 uppercase tracking-wider border-b-2 border-black pb-2">Roommates</h3>
-      <div formArrayName="roommates">
-        <div *ngFor="let roommate of roommates.controls; let i = index" [formGroupName]="i" class="p-4 border-2 border-black rounded-lg bg-white mt-4">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <app-input-number formControlName="year" [label]="'Year: '"/>
-            </div>
-            <div>
-              <label [for]="'gender'+i" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Gender</label>
-              <p-select [id]="'gender'+i" formControlName="Gender" [options]="genderOptions"
-                          optionLabel="label" optionValue="value"> 
-              </p-select>
-            </div>
+      <div *ngFor="let roommate of listing.roommates; let i = index" class="p-4 border-2 border-black rounded-lg bg-white mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <app-input-number [name]="'roommateYear'+i" [(ngModel)]="roommate.year" [label]="'Year: '"></app-input-number>
           </div>
-          <button type="button" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger mt-4 bg-red-700 hover:bg-red-800 border-2 border-black"
-                  (click)="removeRoommate(i)">
-            Remove Roommate
-          </button>
+          <div>
+            <label [for]="'gender'+i" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Gender</label>
+            <p-select [id]="'gender'+i" [name]="'roommateGender'+i" [(ngModel)]="roommate.Gender" [options]="genderOptions"
+                      optionLabel="label" optionValue="value"></p-select>
+          </div>
         </div>
+        <button type="button" pButton icon="pi pi-trash" class="p-button-rounded p-button-danger mt-4 bg-red-700 hover:bg-red-800 border-2 border-black"
+                (click)="removeRoommate(i)">
+          Remove Roommate
+        </button>
       </div>
       <button type="button" pButton icon="pi pi-plus" class="p-button-rounded mt-4 bg-gray-900 hover:bg-gray-800 text-white border-2 border-black"
               (click)="addRoommate()">
@@ -138,13 +134,7 @@
     <div class="space-y-6">
       <div>
         <label for="description" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Description</label>
-        <textarea pInputTextarea id="description" formControlName="description" rows="4" 
-                  class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50"></textarea>
-      </div>
-
-      <div>
-        <label for="notes" class="block text-sm font-bold text-gray-900 uppercase tracking-wider">Additional Notes</label>
-        <textarea pInputTextarea id="notes" formControlName="notes" rows="3" 
+        <textarea pInputTextarea id="description" name="description" [(ngModel)]="listing.description" rows="4" 
                   class="w-full mt-2 border-2 border-black rounded-lg p-3 focus:ring-2 focus:ring-red-600 focus:border-transparent bg-gray-50"></textarea>
       </div>
     </div>

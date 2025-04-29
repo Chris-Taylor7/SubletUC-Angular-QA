@@ -1,28 +1,54 @@
-import { CommonModule } from '@angular/common';
-import { Component, input, Input } from '@angular/core';
-import { DatePickerModule } from 'primeng/datepicker';
+import { Component, Input, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input-number',
-  imports: [InputNumberModule, DatePickerModule],
   templateUrl: './input-number.component.html',
-  styleUrl: './input-number.component.scss'
+  styleUrls: ['./input-number.component.scss'],
+  imports: [InputNumberModule, FormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputNumberComponent),
+      multi: true
+    }
+  ]
 })
-export class InputNumberComponent {
+export class InputNumberComponent implements ControlValueAccessor {
+  @Input() mode: string = 'decimal';
+  @Input() placeholder: string = '';
+  @Input() label: string = '';
+  @Input() forLabel: string = '';
+  @Input() currency: string = 'USD';
+  @Input() suffix: string = '';
 
-  constructor(){}
+  value: any;
+  disabled: boolean = false;
 
-  // Dynamic inputs so to clean up the HTML side of things
-  @Input() mode: string | undefined; // currency, distance, number, etc.
-  @Input() placeholder: string | undefined; //placeholder inside the input area
-  @Input() label: string | undefined; //text displayed above input area
-  @Input() forLabel: string | undefined //"for" attribute in the <label></label> tags
-  //@Input() dateFormat: string | undefined; //only for Availability
-  @Input() currency: string | undefined; //USD
-  //after input text
-  @Input() suffix: string | undefined;
+  private onChange: any = () => {};
+  private onTouched: any = () => {};
 
-  hello = 'hello'
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  onInputChange(value: any) {
+    this.value = value;
+    this.onChange(value);
+    this.onTouched();
+  }
 }

@@ -7,7 +7,7 @@ export interface Listing {
     availability: string,
     bedrooms: number,
     bathrooms: number,
-    description: string
+    description: string,
     utilitiesIncludedInRent: boolean,
     averageutilities: number,
     roommates: Roommate[],
